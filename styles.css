@@ -1,0 +1,929 @@
+/* ========== CSS Reset & Base Styles ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #667eea;
+    --secondary-color: #764ba2;
+    --success-color: #48bb78;
+    --danger-color: #f56565;
+    --warning-color: #ed8936;
+    --info-color: #4299e1;
+    --light-bg: #f7fafc;
+    --dark-text: #2d3748;
+    --border-color: #e2e8f0;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+    --transition: all 0.3s ease;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0f1322 0%, #764ba2 100%);
+    color: var(--dark-text);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* ========== Navigation Bar ========== */
+.navbar {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+
+.navbar-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.app-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--dark-text);
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: var(--transition);
+    position: relative;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+}
+
+/* ========== Container & Layout ========== */
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ========== View Sections ========== */
+.view-section {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.view-section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========== Dashboard ========== */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+.dashboard-header h2 {
+    font-size: 2rem;
+    color: var(--dark-text);
+}
+
+.filter-controls {
+    display: flex;
+    gap: 1rem;
+}
+
+.filter-select,
+.filter-input {
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.filter-select:hover,
+.filter-input:hover {
+    border-color: var(--primary-color);
+}
+
+/* ========== Summary Cards ========== */
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border-left: 5px solid;
+    overflow: hidden;
+    position: relative;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.card h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #718096;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+}
+
+.amount {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--dark-text);
+    margin: 0.5rem 0;
+}
+
+.percentage {
+    font-size: 0.9rem;
+    color: #718096;
+}
+
+.income-card {
+    border-left-color: var(--success-color);
+    background: linear-gradient(135deg, rgba(72, 187, 120, 0.05), rgba(72, 187, 120, 0.02));
+}
+
+.income-card .amount {
+    color: var(--success-color);
+}
+
+.expense-card {
+    border-left-color: var(--danger-color);
+    background: linear-gradient(135deg, rgba(245, 101, 101, 0.05), rgba(245, 101, 101, 0.02));
+}
+
+.expense-card .amount {
+    color: var(--danger-color);
+}
+
+.saving-card {
+    border-left-color: var(--info-color);
+    background: linear-gradient(135deg, rgba(66, 153, 225, 0.05), rgba(66, 153, 225, 0.02));
+}
+
+.saving-card .amount {
+    color: var(--info-color);
+}
+
+/* ========== Charts Section ========== */
+.charts-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.chart-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+.chart-container h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    color: var(--dark-text);
+}
+
+.chart-container canvas {
+    max-height: 300px;
+}
+
+/* ========== Circular Progress ========== */
+.circular-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.circular-item {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.circular-item h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    color: var(--dark-text);
+}
+
+.circular-progress {
+    position: relative;
+    width: 200px;
+    height: 200px;
+}
+
+.circular-progress svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.circle-bg {
+    fill: none;
+    stroke: var(--border-color);
+    stroke-width: 8;
+}
+
+.circle-progress {
+    fill: none;
+    stroke-width: 8;
+    stroke-linecap: round;
+    transition: var(--transition);
+}
+
+#expenseCircle {
+    stroke: var(--danger-color);
+}
+
+#savingsCircle {
+    stroke: var(--success-color);
+}
+
+#investmentCircle {
+    stroke: var(--warning-color);
+}
+
+.circle-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.circle-text .percentage {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--dark-text);
+    display: block;
+}
+
+/* ========== Recent Transactions ========== */
+.recent-transactions {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+}
+
+.recent-transactions h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--dark-text);
+}
+
+.transactions-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.transaction-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    transition: var(--transition);
+    gap: 1rem;
+}
+
+.transaction-item:hover {
+    background: var(--light-bg);
+}
+
+.transaction-item:last-child {
+    border-bottom: none;
+}
+
+.transaction-info {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex: 1;
+}
+
+.transaction-icon {
+    font-size: 2rem;
+}
+
+.transaction-details h4 {
+    margin-bottom: 0.25rem;
+    color: var(--dark-text);
+}
+
+.transaction-details p {
+    font-size: 0.85rem;
+    color: #718096;
+}
+
+.transaction-amount {
+    font-weight: 600;
+    font-size: 1.1rem;
+    min-width: 100px;
+    text-align: right;
+}
+
+.income-amount {
+    color: var(--success-color);
+}
+
+.expense-amount {
+    color: var(--danger-color);
+}
+
+.delete-btn {
+    background: transparent;
+    border: none;
+    color: var(--danger-color);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    transition: var(--transition);
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+}
+
+.transaction-item:hover .delete-btn {
+    opacity: 1;
+    background: rgba(245, 101, 101, 0.1);
+}
+
+.delete-btn:hover {
+    background: var(--danger-color);
+    color: white;
+    transform: scale(1.1);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 2rem;
+    color: #718096;
+    font-style: italic;
+}
+
+/* ========== Forms ========== */
+.form-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-container h2,
+.form-container h3 {
+    margin-bottom: 1.5rem;
+    color: var(--dark-text);
+}
+
+.transaction-form,
+.loan-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.form-group label {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--dark-text);
+}
+
+.form-group input,
+.form-group select {
+    padding: 0.75rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: var(--transition);
+    font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* ========== Buttons ========== */
+.btn {
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-secondary {
+    background: var(--light-bg);
+    color: var(--dark-text);
+    border: 2px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background: var(--border-color);
+}
+
+.btn-danger {
+    background: var(--danger-color);
+    color: white;
+}
+
+.btn-danger:hover {
+    opacity: 0.9;
+}
+
+/* ========== Loan Management ========== */
+.loans-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.loan-form-container {
+    margin-bottom: 2rem;
+}
+
+.loans-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+.loan-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.loan-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.loan-card-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 1.5rem;
+}
+
+.loan-card-header h4 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+.loan-card-body {
+    padding: 1.5rem;
+}
+
+.loan-info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.loan-info-row:last-of-type {
+    border-bottom: none;
+}
+
+.loan-info-label {
+    color: #718096;
+    font-size: 0.9rem;
+}
+
+.loan-info-value {
+    font-weight: 600;
+    color: var(--dark-text);
+    font-size: 1.1rem;
+}
+
+.loan-progress {
+    margin: 1rem 0;
+}
+
+.progress-bar {
+    background: var(--light-bg);
+    height: 8px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0.5rem 0;
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, var(--success-color), var(--info-color));
+    height: 100%;
+    border-radius: 10px;
+    transition: var(--transition);
+}
+
+.loan-card-footer {
+    padding: 1rem 1.5rem;
+    background: var(--light-bg);
+    display: flex;
+    gap: 0.5rem;
+}
+
+.loan-card-footer button {
+    flex: 1;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: var(--transition);
+}
+
+.btn-emi {
+    background: var(--info-color);
+    color: white;
+}
+
+.btn-emi:hover {
+    opacity: 0.9;
+}
+
+.btn-delete {
+    background: var(--danger-color);
+    color: white;
+}
+
+.btn-delete:hover {
+    opacity: 0.9;
+}
+
+/* ========== Reports ========== */
+.reports-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.report-filters {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.report-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+}
+
+.report-section h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    color: var(--dark-text);
+}
+
+.report-table-wrapper {
+    overflow-x: auto;
+}
+
+.report-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.report-table th {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+}
+
+.report-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.report-table tbody tr:hover {
+    background: var(--light-bg);
+}
+
+.export-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+.export-section h3 {
+    margin-bottom: 1.5rem;
+    color: var(--dark-text);
+}
+
+.export-section {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.export-section h3 {
+    width: 100%;
+}
+
+.export-section .btn {
+    margin-right: 1rem;
+}
+
+/* ========== Modal ========== */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.close {
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #718096;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.close:hover {
+    color: var(--dark-text);
+}
+
+.modal-content h2 {
+    margin-bottom: 1.5rem;
+    color: var(--dark-text);
+}
+
+/* ========== Responsive Design ========== */
+@media (max-width: 768px) {
+    .navbar-content {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .nav-menu {
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+    }
+
+    .nav-link {
+        display: block;
+        padding: 0.75rem;
+        text-align: center;
+    }
+
+    .summary-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .charts-section {
+        grid-template-columns: 1fr;
+    }
+
+    .circular-section {
+        grid-template-columns: 1fr;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .filter-controls {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .filter-select,
+    .filter-input {
+        width: 100%;
+    }
+
+    .report-table {
+        font-size: 0.85rem;
+    }
+
+    .report-table th,
+    .report-table td {
+        padding: 0.75rem 0.5rem;
+    }
+
+    .transaction-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .transaction-amount {
+        text-align: left;
+        margin-top: 0.5rem;
+    }
+
+    .modal-content {
+        width: 95%;
+    }
+
+    .loan-card-footer {
+        flex-direction: column;
+    }
+
+    .loan-card-footer button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-title {
+        font-size: 1.4rem;
+    }
+
+    .nav-menu {
+        gap: 0.25rem;
+    }
+
+    .nav-link {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.85rem;
+    }
+
+    .card {
+        padding: 1.5rem;
+    }
+
+    .card h3 {
+        font-size: 0.8rem;
+    }
+
+    .amount {
+        font-size: 1.5rem;
+    }
+
+    .charts-section,
+    .circular-section {
+        gap: 1rem;
+    }
+
+    .form-container {
+        padding: 1.5rem;
+    }
+
+    .circular-progress {
+        width: 150px;
+        height: 150px;
+    }
+
+    .circle-text .percentage {
+        font-size: 1.5rem;
+    }
+}

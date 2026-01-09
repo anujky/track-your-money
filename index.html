@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Your Money - Personal Finance Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <div class="navbar-content">
+                <h1 class="app-title">💰 Track Your Money</h1>
+                <ul class="nav-menu">
+                    <li><a href="#" class="nav-link active" data-view="dashboard">Dashboard</a></li>
+                    <li><a href="#" class="nav-link" data-view="transaction">Add Transaction</a></li>
+                    <li><a href="#" class="nav-link" data-view="loans">Loans</a></li>
+                    <li><a href="#" class="nav-link" data-view="reports">Reports</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Dashboard View -->
+            <section id="dashboard" class="view-section active">
+                <div class="dashboard-header">
+                    <h2>Dashboard</h2>
+                    <div class="filter-controls">
+                        <select id="filterType" class="filter-select">
+                            <option value="month">This Month</option>
+                            <option value="year">This Year</option>
+                            <option value="custom">Custom Range</option>
+                        </select>
+                        <input type="month" id="monthPicker" class="filter-input">
+                    </div>
+                </div>
+
+                <!-- Summary Cards -->
+                <div class="summary-cards">
+                    <div class="card income-card">
+                        <h3>Total Income</h3>
+                        <p class="amount" id="totalIncome">₹0</p>
+                        <p class="percentage" id="incomePercentage">0%</p>
+                    </div>
+                    <div class="card expense-card">
+                        <h3>Total Expenses</h3>
+                        <p class="amount" id="totalExpenses">₹0</p>
+                        <p class="percentage" id="expensePercentage">0%</p>
+                    </div>
+                    <div class="card saving-card">
+                        <h3>Total Savings</h3>
+                        <p class="amount" id="totalSavings">₹0</p>
+                        <p class="percentage" id="savingPercentage">0%</p>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="charts-section">
+                    <div class="chart-container">
+                        <h3>Expenses Breakdown</h3>
+                        <canvas id="expenseChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Income Breakdown</h3>
+                        <canvas id="incomeChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Circular Percentage View -->
+                <div class="circular-section">
+                    <div class="circular-item">
+                        <h3>Expense Rate</h3>
+                        <div class="circular-progress">
+                            <svg viewBox="0 0 100 100">
+                                <circle class="circle-bg" cx="50" cy="50" r="45"></circle>
+                                <circle class="circle-progress" id="expenseCircle" cx="50" cy="50" r="45"></circle>
+                            </svg>
+                            <div class="circle-text">
+                                <span class="percentage" id="expenseRate">0%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="circular-item">
+                        <h3>Savings Rate</h3>
+                        <div class="circular-progress">
+                            <svg viewBox="0 0 100 100">
+                                <circle class="circle-bg" cx="50" cy="50" r="45"></circle>
+                                <circle class="circle-progress" id="savingsCircle" cx="50" cy="50" r="45"></circle>
+                            </svg>
+                            <div class="circle-text">
+                                <span class="percentage" id="savingRate">0%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="circular-item">
+                        <h3>Investment Rate</h3>
+                        <div class="circular-progress">
+                            <svg viewBox="0 0 100 100">
+                                <circle class="circle-bg" cx="50" cy="50" r="45"></circle>
+                                <circle class="circle-progress" id="investmentCircle" cx="50" cy="50" r="45"></circle>
+                            </svg>
+                            <div class="circle-text">
+                                <span class="percentage" id="investmentRate">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Transactions -->
+                <div class="recent-transactions">
+                    <h3>Recent Transactions</h3>
+                    <div class="transactions-list" id="transactionsList">
+                        <p class="empty-state">No transactions yet. Add one to get started!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Add Transaction View -->
+            <section id="transaction" class="view-section">
+                <div class="form-container">
+                    <h2>Add Transaction</h2>
+                    <form id="transactionForm" class="transaction-form">
+                        <div class="form-group">
+                            <label for="transactionDate">Date</label>
+                            <input type="date" id="transactionDate" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="transactionType">Transaction Type</label>
+                            <select id="transactionType" required>
+                                <option value="">Select Type</option>
+                                <option value="income">Income</option>
+                                <option value="expense">Expense</option>
+                                <option value="saving">Saving</option>
+                                <option value="investment">Investment</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mainCategory">Category</label>
+                            <select id="mainCategory" required>
+                                <option value="">Select Category</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subCategory">Sub-Category</label>
+                            <select id="subCategory" required>
+                                <option value="">Select Sub-Category</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input type="text" id="description" placeholder="Optional details">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="amount">Amount (₹)</label>
+                            <input type="number" id="amount" min="0" step="0.01" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Add Transaction</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Loans View -->
+            <section id="loans" class="view-section">
+                <div class="loans-container">
+                    <h2>Loan Management</h2>
+                    
+                    <!-- Add Loan Form -->
+                    <div class="form-container loan-form-container">
+                        <h3>Add New Loan</h3>
+                        <form id="loanForm" class="loan-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="loanName">Loan Name</label>
+                                    <input type="text" id="loanName" placeholder="e.g., Home Loan" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="loanAmount">Principal Amount (₹)</label>
+                                    <input type="number" id="loanAmount" min="0" step="0.01" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="loanRate">Interest Rate (%)</label>
+                                    <input type="number" id="loanRate" min="0" step="0.01" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="loanTenure">Tenure (Months)</label>
+                                    <input type="number" id="loanTenure" min="1" step="1" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="loanStartDate">Start Date</label>
+                                    <input type="date" id="loanStartDate" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="emiAmount">Monthly EMI (₹)</label>
+                                    <input type="number" id="emiAmount" min="0" step="0.01" readonly>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Add Loan</button>
+                        </form>
+                    </div>
+
+                    <!-- Loans List -->
+                    <div class="loans-list">
+                        <h3>Active Loans</h3>
+                        <div id="loansList" class="loans-grid">
+                            <p class="empty-state">No loans added yet.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reports View -->
+            <section id="reports" class="view-section">
+                <div class="reports-container">
+                    <h2>Financial Reports</h2>
+
+                    <div class="report-filters">
+                        <select id="reportType" class="filter-select">
+                            <option value="monthly">Monthly Report</option>
+                            <option value="yearly">Yearly Report</option>
+                            <option value="category">Category Wise</option>
+                        </select>
+                        <input type="month" id="reportMonth" class="filter-input">
+                    </div>
+
+                    <!-- Monthly Summary -->
+                    <div class="report-section">
+                        <h3>Monthly Summary</h3>
+                        <div class="report-table-wrapper">
+                            <table class="report-table" id="reportTable">
+                                <thead>
+                                    <tr>
+                                        <th>Month</th>
+                                        <th>Income</th>
+                                        <th>Expenses</th>
+                                        <th>Savings</th>
+                                        <th>Investment</th>
+                                        <th>Net Savings</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="reportTableBody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Export Options -->
+                    <div class="export-section">
+                        <h3>Export Data</h3>
+                        <button class="btn btn-secondary" id="exportCSV">📥 Download as CSV</button>
+                        <button class="btn btn-secondary" id="syncGoogleSheets">☁️ Sync to Google Sheets</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal for EMI Payment -->
+    <div id="emiModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Record EMI Payment</h2>
+            <form id="emiPaymentForm">
+                <div class="form-group">
+                    <label for="emiPaymentDate">Payment Date</label>
+                    <input type="date" id="emiPaymentDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="emiPaymentAmount">Amount Paid (₹)</label>
+                    <input type="number" id="emiPaymentAmount" min="0" step="0.01" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Record Payment</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
